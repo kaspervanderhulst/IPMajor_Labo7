@@ -10,25 +10,20 @@
 use Mix.Config
 
 # Configure Mix tasks and generators
-config :users_auth,
-  ecto_repos: [UsersAuth.Repo]
+config :vanderhulst_kasper_ipm_project,
+  ecto_repos: [VanderhulstKasperIpmProject.Repo]
 
-config :users_auth_web,
-  ecto_repos: [UsersAuth.Repo],
-  generators: [context_app: :users_auth]
-
-
-config :users_auth_web, UsersAuthWeb.Guardian,
-  issuer: "users_auth_web",
-  secret_key: "nM7Q0coKP2cKyjMpW732yHC1vgH0//oQX6Br/nKWmt1b6RfKh8erYwzUJ6B3NdQ1"
+config :vanderhulst_kasper_ipm_project_web,
+  ecto_repos: [VanderhulstKasperIpmProject.Repo],
+  generators: [context_app: :vanderhulst_kasper_ipm_project]
 
 # Configures the endpoint
-config :users_auth_web, UsersAuthWeb.Endpoint,
+config :vanderhulst_kasper_ipm_project_web, VanderhulstKasperIpmProjectWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "g0gCEa7NeST+ZZ6It0C0iLQO8zb2EJdtUdDrfiAlo/L8VcchMXbZrbUCBtvvcaZb",
-  render_errors: [view: UsersAuthWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: UsersAuthWeb.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [signing_salt: "s4gQE7uK"]
+  secret_key_base: "Aw3z7ARZ8CVTeh/c4VtXDqyYLtnjsKJQVVeKV6ZinOgYbdhISngI4zPY1x/T7+kk",
+  render_errors: [view: VanderhulstKasperIpmProjectWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: VanderhulstKasperIpmProjectWeb.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "mwxIw9vt"]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -38,6 +33,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :vanderhulst_kasper_ipm_project_web, VanderhulstKasperIpmProjectWeb.Guardian,
+  issuer: "vanderhulst_kasper_ipm_project_web",
+  secret_key: "QA2Z2JDYTcYQhR1FYRzLsPLgqT3oBxSAeDm12M/+osARtkln172RwZeMT+/pRSPE"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+

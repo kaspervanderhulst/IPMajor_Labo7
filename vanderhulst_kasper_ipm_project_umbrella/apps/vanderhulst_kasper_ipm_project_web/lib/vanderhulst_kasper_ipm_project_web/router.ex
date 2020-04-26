@@ -1,5 +1,5 @@
-defmodule UsersAuthWeb.Router do
-  use UsersAuthWeb, :router
+defmodule VanderhulstKasperIpmProjectWeb.Router do
+  use VanderhulstKasperIpmProjectWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -14,7 +14,7 @@ defmodule UsersAuthWeb.Router do
   end
 
   pipeline :auth do
-    plug UsersAuthWeb.Pipeline
+    plug VanderhulstKasperIpmProjectWeb.Pipeline
   end
 
   pipeline :ensure_auth do
@@ -22,18 +22,14 @@ defmodule UsersAuthWeb.Router do
   end
 
   pipeline :allowed_for_users do
-    plug UsersAuthWeb.Plugs.AuthorizationPlug, ["Admin", "Manager", "User"]
-  end
-
-  pipeline :allowed_for_managers do
-    plug UsersAuthWeb.Plugs.AuthorizationPlug, ["Admin", "Manager"]
+    plug VanderhulstKasperIpmProjectWeb.Plugs.AuthorizationPlug, ["Admin","User"]
   end
 
   pipeline :allowed_for_admins do
-    plug UsersAuthWeb.Plugs.AuthorizationPlug, ["Admin"]
+    plug VanderhulstKasperIpmProjectWeb.Plugs.AuthorizationPlug, ["Admin"]
   end
 
-  scope "/", UsersAuthWeb do
+  scope "/", VanderhulstKasperIpmProjectWeb do
     pipe_through [:browser, :auth]
 
     get "/", PageController, :index
@@ -42,27 +38,20 @@ defmodule UsersAuthWeb.Router do
     get "/logout", SessionController, :logout
   end
 
-  scope "/", UsersAuthWeb do
+  scope "/", VanderhulstKasperIpmProjectWeb do
     pipe_through [:browser, :auth, :ensure_auth, :allowed_for_users]
 
     get "/user_scope", PageController, :user_index
   end
 
-  scope "/", UsersAuthWeb do
-    pipe_through [:browser, :auth, :ensure_auth, :allowed_for_managers]
-
-    get "/manager_scope", PageController, :manager_index
-  end
-
-  scope "/admin", UsersAuthWeb do
+  scope "/admin", VanderhulstKasperIpmProjectWeb do
     pipe_through [:browser, :auth, :ensure_auth, :allowed_for_admins]
 
     resources "/users", UserController
     get "/", PageController, :admin_index
   end
-
   # Other scopes may use custom stacks.
-  # scope "/api", UsersAuthWeb do
+  # scope "/api", VanderhulstKasperIpmProjectWeb do
   #   pipe_through :api
   # end
 end
